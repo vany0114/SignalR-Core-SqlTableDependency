@@ -1,1 +1,7 @@
 src/SignalRCore.Web/node_modules/
+src/SignalRCore.Web/wwwroot/lib/
+!src/SignalRCore.Web/wwwroot/lib/signalr/
+src/SignalRCore.Web/bin/
+src/SignalRCore.Web/obj/
+src/SignalRCore.Console/bin/
+src/SignalRCore.Console/obj/
