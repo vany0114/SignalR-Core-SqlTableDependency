@@ -3,13 +3,13 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3.3.7",
-    "jquery": "2.2.0",
+    "jquery": "3.2.1",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
     "DataTables": "RELEASE_1_9_4",
     "datatables-bootstrap3": "0.1"
   },
   "resolutions": {
-    "jquery": ">= 1.7.2"
+    "jquery": "3.2.1"
   }
 }
