@@ -1,0 +1,92 @@
+{
+  "_args": [
+    [
+      "jquery.tabulator@^1.12.0",
+      "C:\\Users\\Giovany\\documents\\visual studio 2017\\Projects\\SignalRCore_SqlDependency\\SignalRCore_SqlDependency"
+    ]
+  ],
+  "_from": "jquery.tabulator@>=1.12.0-0 <2.0.0-0",
+  "_id": "jquery.tabulator@1.12.0",
+  "_inCache": true,
+  "_location": "/jquery.tabulator",
+  "_nodeVersion": "6.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/jquery.tabulator-1.12.0.tgz_1492030815290_0.13931279350072145"
+  },
+  "_npmUser": {
+    "email": "oliver.folkerd@gmail.com",
+    "name": "olifolkerd"
+  },
+  "_npmVersion": "4.4.4",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "jquery.tabulator",
+    "raw": "jquery.tabulator@^1.12.0",
+    "rawSpec": "^1.12.0",
+    "scope": null,
+    "spec": ">=1.12.0-0 <2.0.0-0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery.tabulator/-/jquery.tabulator-1.12.0.tgz",
+  "_shasum": "03b5d09162e0322bc0126caf47eeb99690cde8ad",
+  "_shrinkwrap": null,
+  "_spec": "jquery.tabulator@^1.12.0",
+  "_where": "C:\\Users\\Giovany\\documents\\visual studio 2017\\Projects\\SignalRCore_SqlDependency\\SignalRCore_SqlDependency",
+  "author": {
+    "name": "Oli Folkerd"
+  },
+  "bugs": {
+    "url": "https://github.com/olifolkerd/tabulator/issues"
+  },
+  "dependencies": {},
+  "description": "Interactive table generation plugin for jQuery UI",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "03b5d09162e0322bc0126caf47eeb99690cde8ad",
+    "tarball": "https://registry.npmjs.org/jquery.tabulator/-/jquery.tabulator-1.12.0.tgz"
+  },
+  "gitHead": "8c76d7e6af0886d1167700b7740fcca2c823b714",
+  "homepage": "https://olifolkerd.github.io/tabulator/",
+  "installable": true,
+  "keywords": [
+    "ajax",
+    "cookie",
+    "datagrid",
+    "editable",
+    "format",
+    "grid",
+    "jquery",
+    "jqueryui",
+    "json",
+    "list",
+    "resizable",
+    "scrollable",
+    "sort",
+    "table",
+    "tabulator",
+    "widget"
+  ],
+  "license": "MIT",
+  "main": "tabulator.js",
+  "maintainers": [
+    {
+      "name": "olifolkerd",
+      "email": "oliver.folkerd@gmail.com"
+    }
+  ],
+  "name": "jquery.tabulator",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olifolkerd/tabulator.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.12.0"
+}

@@ -1,0 +1,7 @@
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\bin\Debug\netcoreapp2.0\SignalRCore.Console.deps.json
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\bin\Debug\netcoreapp2.0\SignalRCore.Console.runtimeconfig.json
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\bin\Debug\netcoreapp2.0\SignalRCore.Console.runtimeconfig.dev.json
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\bin\Debug\netcoreapp2.0\SignalRCore.Console.dll
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\obj\Debug\netcoreapp2.0\SignalRCore.Console.csproj.CoreCompileInputs.cache
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\obj\Debug\netcoreapp2.0\SignalRCore.Console.AssemblyInfo.cs
+C:\Users\Giovany\documents\visual studio 2017\Projects\SignalRCore_SqlDependency\SignalRCore.Console\obj\Debug\netcoreapp2.0\SignalRCore.Console.csprojResolveAssemblyReference.cache

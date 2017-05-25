@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="text-center">SignalR Core and SQL Dependency</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Products</h2>
+        <table id="products-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-right">Quantity</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h2>Sell Product</h2>
+        <fieldset style="padding: .80em .625em .75em; margin: 0 2px; border: 1px solid #c0c0c0;">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Product</label>
+                </div>
+                <div class="col-md-6">
+                    <select id="product" style="width: 100%;">
+                        @foreach (var product in Model)
+                        {
+                            <option value="@product.Name">@product.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Quantity</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="quantity" style="width: 100%;" class="text-right" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right" style="padding: 15px;">
+                    <button id="btn-sell">Sell</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <label id="connetion-status" style="margin-left: 17px;"></label>
+</div>
+
+@section Scripts{
+    <script src="~/lib/signalr/signalr-client.js"></script>
+    <script src="~/lib/DataTables/media/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables-bootstrap3/BS3/assets/js/datatables.js"></script>
+
+    <script>
+        //TODO: remove the js inside this page.
+
+        let startConnection = () => {
+            connection.start()
+                .then(e => {
+                    $("#connetion-status").text("Connection opened");
+                    $("#connetion-status").css("color", "green");
+                })
+                .catch(err => console.log(err));
+        };
+
+        let showProducts = (products) => {
+            $('#products-table').DataTable({
+                aaData: products,
+                aoColumns: [
+                    { mDataProp: "name" },
+                    { mDataProp: "quantity", sType: "numeric", sClass: "text-right" }
+                ]
+            });
+        };
+
+        let refreshProductList = (products) => {
+            $('#product').find('option').remove();
+            products.forEach((product) => {
+                $('<option/>').val(product.name).html(product.name).appendTo('#product');
+            });
+        }
+
+        let connection = new signalR.HubConnection(`http://${document.location.host}/inventory`, 'formatType=json&format=text');
+        startConnection();
+        showProducts(@Html.Raw(Json.Serialize(Model)));
+
+        connection.onClosed = e => {
+            if (e) {
+                $("#connetion-status").text("Connection closed " + e);
+                $("#connetion-status").css("color", "red");
+            }
+            else {
+                $("#connetion-status").text("Connection closed");
+                $("#connetion-status").css("color", "green");
+            }
+            startConnection();
+        };
+
+        connection.on('UpdateCatalog', products => {
+            $('#products-table').DataTable().fnClearTable();
+            $('#products-table').DataTable().fnAddData(products);
+            refreshProductList(products);
+        });
+
+        $("#btn-sell").on('click', (e) => {
+            let product = $("#product").val();
+            let quantity = parseInt($("#quantity").val());
+
+            connection.invoke('SellProduct', product, quantity)
+                .catch(err => console.log(err));
+        });
+    </script>
+}

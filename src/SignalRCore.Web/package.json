@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "jquery.tabulator": "^1.12.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-add-src": "^0.2.0"
+  }
+}

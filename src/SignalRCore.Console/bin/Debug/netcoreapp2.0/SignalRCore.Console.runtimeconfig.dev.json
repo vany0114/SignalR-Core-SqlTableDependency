@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Giovany\\.nuget\\packages",
+      "C:\\Users\\Giovany\\.dotnet\\NuGetFallbackFolder"
+    ]
+  }
+}
