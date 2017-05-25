@@ -1,4 +1,4 @@
-# SignalR-Core-SqlTableDependency
+# SignalR-Core and SqlTableDependency
 
 Is very early to talk about [SignalR Core](https://github.com/aspnet/SignalR) but it's exciting too. With the recent releasing of .netcore 2.0 the last [Microsoft Build](https://build.microsoft.com/) we can test a lot of great improvements and new features, between of them, the new SignalR Core. (Or at least the aproximation of what the SignalR team wants to build.) I have to warning that SignalR Core is on development process right now (as a matter of fact, while I was doing this demo I faced some issues because of the constant upgrades of SignalR team), so a bunch of things could change, but in some months (6 months at least) we can compare the progress and we could have a stable version of SignalR Core, meanwhile we can enjoy of this "version".
 
