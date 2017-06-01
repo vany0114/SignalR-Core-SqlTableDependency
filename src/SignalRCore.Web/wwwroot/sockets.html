@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 id="transportName">Websocket Transport</h1>
+    <form id="sendmessage">
+        <input type="text" id="data" />
+        <input type="submit" value="Send" />
+    </form>
+    <ul id="messages"></ul>
+    <script src="lib/signalr/signalr-client.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let url = `http://${document.location.host}/message`
+            let connection = new signalR.Connection(url);
+
+            connection.onDataReceived = data => {
+                let child = document.createElement('li');
+                child.innerText = data;
+                document.getElementById('messages').appendChild(child);
+            };
+
+            document.getElementById('sendmessage').addEventListener('submit', event => {
+                let data = document.getElementById('data').value;
+                connection.send(data);
+                event.preventDefault();
+            });
+
+            connection.start(signalR.TransportType.WebSockets).then(() => {
+                console.log("Opened");
+            }, () => {
+                console.log("Error opening connection");
+            });
+        });
+    </script>
+</body>
+</html>

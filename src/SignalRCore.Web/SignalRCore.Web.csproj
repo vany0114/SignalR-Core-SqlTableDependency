@@ -11,6 +11,7 @@
     <Content Include="wwwroot\js\main.js" />
     <Content Include="wwwroot\js\main.min.js" />
     <Content Include="wwwroot\lib\signalr\signalr-client.js" />
+    <Content Include="wwwroot\sockets.html" />
   </ItemGroup>
 
   <ItemGroup>

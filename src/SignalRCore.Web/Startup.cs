@@ -15,6 +15,7 @@ using SignalRCore.Web;
 using Microsoft.EntityFrameworkCore;
 using SignalRCore.Web.Persistence;
 using SignalRCore.Web.Extensions;
+using SignalRCore.Web.EndPoints;
 
 namespace SignalRCore.Web
 {
@@ -38,12 +39,13 @@ namespace SignalRCore.Web
         {
             services.AddMvc();
             services.AddSignalR();
+            services.AddEndPoint<MessagesEndPoint>();
 
             // dependency injection
             services.AddDbContextFactory<InventoryContext>(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddScoped<IInventoryRepository, DatabaseRepository>();
             services.AddSingleton<InventoryDatabaseSubscription, InventoryDatabaseSubscription>();
             services.AddScoped<IHubContext<Inventory>, HubContext<Inventory>>();
-            services.AddScoped<IInventoryRepository, DatabaseRepository>();
             //services.AddSingleton<IInventoryRepository, InMemoryInventoryRepository>();
         }
 
@@ -64,6 +66,11 @@ namespace SignalRCore.Web
             app.UseSignalR(routes =>
             {
                 routes.MapHub<Inventory>("/inventory");
+            });
+
+            app.UseSockets(routes =>
+            {
+                routes.MapEndpoint<MessagesEndPoint>("/message");
             });
 
             app.UseMvc(routes =>
