@@ -11,3 +11,5 @@ Is very early to talk about [SignalR Core](https://github.com/aspnet/SignalR) bu
 2. Compile it.
 3. Execute the ***SignalRCore.Web*** project.
 4. Execute the ***SignalRCore.CommandLine*** project. You can use `dotnet run` command.
+
+Visit my blog <http://elvanydev.com/> to view the whole post about SignalR Core.
