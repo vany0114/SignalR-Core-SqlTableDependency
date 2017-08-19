@@ -9,7 +9,21 @@ Is very early to talk about [SignalR Core](https://github.com/aspnet/SignalR) bu
 ## Instructions
 1. Clone this repository.
 2. Compile it.
-3. Execute the ***SignalRCore.Web*** project.
-4. Execute the ***SignalRCore.CommandLine*** project. You can use `dotnet run` command.
+3. In order to use the SQL Broker,  you must be sure to enable Service Broker for the database. You can use the following command: `ALTER DATABASE MyDatabase SET ENABLE_BROKER`
+4. Create Products table:
+```sql
+CREATE TABLE [dbo].[Products](
+	[Name] [varchar](200) NOT NULL,
+	[Quantity] [int] NOT NULL,
+ CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+```
+5. Execute the SignalRCore.Web project.
+6. Execute the SignalRCore.CommandLine project. You can use `dotnet run` command.
 
 Visit my blog <http://elvanydev.com/> to view the whole post about SignalR Core.
