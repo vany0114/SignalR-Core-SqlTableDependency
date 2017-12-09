@@ -13,6 +13,8 @@ namespace SignalRCore.CommandLine
     {
         public static int Main(string[] args)
         {
+            Thread.Sleep(2000);
+
             return Task.Run(async () =>
             {
                 return await ExecuteAsync();
@@ -22,10 +24,13 @@ namespace SignalRCore.CommandLine
         public static async Task<int> ExecuteAsync()
         {
             var baseUrl = "http://localhost:4235/inventory";
-            var loggerFactory = new LoggerFactory();
 
             Console.WriteLine("Connecting to {0}", baseUrl);
-            var connection = new HubConnection(new Uri(baseUrl), loggerFactory);
+            var connection = new HubConnectionBuilder()
+                .WithUrl(baseUrl)
+                .WithConsoleLogger()
+                .Build();
+
             try
             {
                 await connection.StartAsync();
@@ -40,9 +45,9 @@ namespace SignalRCore.CommandLine
                 };
 
                 // Set up handler
-                connection.On("UpdateCatalog", new[] { typeof(IEnumerable<dynamic>) }, a =>
+                connection.On<List<dynamic>>("UpdateCatalog", data =>
                 {
-                    var products = a[0] as List<dynamic>;
+                    var products = data;
                     foreach (var item in products)
                     {
                         Console.WriteLine($"{item.name}: {item.quantity}");
@@ -59,7 +64,7 @@ namespace SignalRCore.CommandLine
                         break;
                     }
 
-                    await connection.Invoke("RegisterProduct", cts.Token, product, quanity);
+                    await connection.InvokeAsync("RegisterProduct", product, quanity, cts.Token);
                 }
             }
             catch (AggregateException aex) when (aex.InnerExceptions.All(e => e is OperationCanceledException))

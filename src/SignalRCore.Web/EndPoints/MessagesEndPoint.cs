@@ -11,21 +11,20 @@ namespace SignalRCore.Web.EndPoints
     {
         public ConnectionList Connections { get; } = new ConnectionList();
 
-        public override async Task OnConnectedAsync(Connection connection)
+        public override async Task OnConnectedAsync(ConnectionContext connection)
         {
             Connections.Add(connection);
             await Broadcast($"{connection.ConnectionId} connected ({connection.Metadata[ConnectionMetadataNames.Transport]})");
 
             try
             {
-                while (await connection.Transport.Input.WaitToReadAsync())
+                while (await connection.Transport.In.WaitToReadAsync())
                 {
-                    Message message;
-                    if (connection.Transport.Input.TryRead(out message))
+                    if (connection.Transport.In.TryRead(out var message))
                     {
-                        var text = Encoding.UTF8.GetString(message.Payload);
+                        var text = Encoding.UTF8.GetString(message);
                         text = $"{connection.ConnectionId}: {text}";
-                        await Broadcast(Encoding.UTF8.GetBytes(text), message.Type, message.EndOfMessage);
+                        await Broadcast(text);
                     }
                 }
             }
@@ -38,18 +37,15 @@ namespace SignalRCore.Web.EndPoints
 
         private Task Broadcast(string text)
         {
-            return Broadcast(Encoding.UTF8.GetBytes(text), MessageType.Text, endOfMessage: true);
+            return Broadcast(Encoding.UTF8.GetBytes(text));
         }
 
-        private Task Broadcast(byte[] payload, MessageType format, bool endOfMessage)
+        private Task Broadcast(byte[] payload)
         {
             var tasks = new List<Task>(Connections.Count);
             foreach (var c in Connections)
             {
-                tasks.Add(c.Transport.Output.WriteAsync(new Message(
-                    payload,
-                    format,
-                    endOfMessage)));
+                tasks.Add(c.Transport.Out.WriteAsync(payload));
             }
 
             return Task.WhenAll(tasks);

@@ -5,36 +5,77 @@
     <title></title>
 </head>
 <body>
-    <h1 id="transportName">Websocket Transport</h1>
+    <h1 id="transportName">Unknown Transport</h1>
+
     <form id="sendmessage">
         <input type="text" id="data" />
         <input type="submit" value="Send" />
     </form>
-    <ul id="messages"></ul>
-    <script src="lib/signalr/signalr-client.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            let url = `http://${document.location.host}/message`
-            let connection = new signalR.Connection(url);
 
-            connection.onDataReceived = data => {
+    <ul id="messages"></ul>
+    <script type="text/javascript">
+        if (typeof Promise === 'undefined') {
+            document.write('<script type="text/javascript" src="lib/signalr-client/signalr-clientES5-1.0.0-alpha2-final.min.js"><\/script>');
+        }
+        else {
+            document.write('<script type="text/javascript" src="lib/signalr/signalr-client-1.0.0-alpha2-final.min.js"><\/script>');
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let transportType = signalR.TransportType[getParameterByName('transport')] || signalR.TransportType.WebSockets;
+            document.getElementById('transportName').innerHTML = signalR.TransportType[transportType];
+
+            let url = 'http://' + document.location.host + '/message';
+            let connection = new signalR.HttpConnection(url, { transport: transportType, logging: new signalR.ConsoleLogger(signalR.LogLevel.Information) });
+
+            connection.onreceive = function (data) {
                 let child = document.createElement('li');
                 child.innerText = data;
                 document.getElementById('messages').appendChild(child);
             };
 
-            document.getElementById('sendmessage').addEventListener('submit', event => {
+            document.getElementById('sendmessage').addEventListener('submit', function (event) {
                 let data = document.getElementById('data').value;
                 connection.send(data);
                 event.preventDefault();
             });
 
-            connection.start(signalR.TransportType.WebSockets).then(() => {
+            connection.start().then(function () {
                 console.log("Opened");
-            }, () => {
+            }, function () {
                 console.log("Error opening connection");
             });
         });
+
+        function getParameterByName(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function click(id, callback) {
+            document.getElementById(id).addEventListener('click', function (event) {
+                callback(event);
+                event.preventDefault();
+            });
+        }
+
+        function addLine(listId, line, color) {
+            var child = document.createElement('li');
+            if (color) {
+                child.style.color = color;
+            }
+            child.innerText = line;
+            document.getElementById(listId).appendChild(child);
+        }
     </script>
 </body>
 </html>

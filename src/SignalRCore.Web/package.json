@@ -3,6 +3,7 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
+    "@aspnet/signalr-client": "^1.0.0-alpha2-final",
     "jquery.tabulator": "^1.12.0"
   },
   "devDependencies": {

@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalRCore.Web.Repository;
 using SignalRCore.Web.Hubs;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
 using Microsoft.AspNetCore.SignalR;
-using SignalRCore.Web;
-using Microsoft.EntityFrameworkCore;
 using SignalRCore.Web.Persistence;
-using SignalRCore.Web.Extensions;
 using SignalRCore.Web.EndPoints;
+using EFCore.DbContextFactory.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace SignalRCore.Web
 {
@@ -42,7 +35,7 @@ namespace SignalRCore.Web
             services.AddEndPoint<MessagesEndPoint>();
 
             // dependency injection
-            services.AddDbContextFactory<InventoryContext>(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddSqlServerDbContextFactory<InventoryContext>(Configuration.GetConnectionString("DefaultConnection"));
             services.AddScoped<IInventoryRepository, DatabaseRepository>();
             services.AddSingleton<InventoryDatabaseSubscription, InventoryDatabaseSubscription>();
             services.AddScoped<IHubContext<Inventory>, HubContext<Inventory>>();
@@ -65,12 +58,12 @@ namespace SignalRCore.Web
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<Inventory>("/inventory");
+                routes.MapHub<Inventory>("inventory");
             });
 
             app.UseSockets(routes =>
             {
-                routes.MapEndpoint<MessagesEndPoint>("/message");
+                routes.MapEndPoint<MessagesEndPoint>("message");
             });
 
             app.UseMvc(routes =>
