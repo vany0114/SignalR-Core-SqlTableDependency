@@ -26,4 +26,7 @@ GO
 5. Execute the SignalRCore.Web project.
 6. Execute the SignalRCore.CommandLine project. You can use `dotnet run` command.
 
+## Support
+If you find this project helpful you can [support me](http://www.paypal.me/vany0114/3)!
+
 Visit my blog <http://elvanydev.com/> to view the whole post about SignalR Core.
